@@ -56,9 +56,24 @@ export default function Episode({ episode }: EpisodeProps) {
   )
 }
 
+// O getStaticPaths é necessário ao gerar uma página estática que seja dinâmica. 
+// (Isso mesmo que você leu!)
+
+// No retorno, o array paths indica ao next qual página deve ser gerada de forma
+// estática no momento da build.
+
+// o fallback é o que indica o que irá acontecer ao acessar uma url que não
+// foi gerada previamente.
+// fallback: false -> retorna 404
+// fallback: true -> tenta buscar os dados pra criar a página estática, salvar em disco, mas requisição acontece no client.
+// fallback: 'blocking' -> roda a requisição no server nodejs (melhor opção para SEO).
+// true & 'blocking' are incremental static generation
+
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [],
+    paths: [
+      { params: { slug: 'a-importancia-da-contribuicao-em-open-source' } }
+    ],
     fallback: 'blocking'
   }
 }
